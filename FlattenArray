@@ -1,0 +1,37 @@
+package flattenArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class FlattenArray {
+
+	public static void main(String[] args) {
+		//sample for this output [[1,2,[3]],4] -> [1,2,3,4]
+				Object[] inputArr = new Object[2];
+				inputArr[0] = new Object[3];
+				((Object[]) inputArr[0])[0] = new Integer(1);
+				((Object[]) inputArr[0])[1] = new Integer(2);
+				((Object[]) inputArr[0])[2] = new Object[1];
+				((Object[])((Object[]) inputArr[0])[2])[0] = new Integer(3);
+				inputArr[1] = new Integer(4);
+				List<Integer> resultQueue = new ArrayList<Integer>();
+				flattenArrays(inputArr, resultQueue);
+				System.out.println("Flattened Array "+resultQueue);
+
+	}
+	
+	//depth first search 
+		private static void flattenArrays(Object[] inputArr, List<Integer> resultQueue) {
+			for(int i = 0; i < inputArr.length; i++) {
+				if(inputArr[i] instanceof Object[]) {
+					flattenArrays((Object[]) inputArr[i], resultQueue);
+				} else if(inputArr[i] instanceof Integer) {
+					resultQueue.add((Integer)inputArr[i]);
+				} else {
+					System.out.println("what?");
+				}
+			}
+		}
+	
+
+}
